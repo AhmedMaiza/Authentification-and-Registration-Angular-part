@@ -1,0 +1,90 @@
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <h2 class="fw-bold">Register</h2>
+
+
+               <form [formGroup]="myForm">
+                <div class="alert alert-danger" *ngIf="err">
+                     <strong>{{err}}</strong>
+                </div>
+                    <div class="form-group">
+                        <label for="username" class="form-label">Nom Utilisateur :</label>
+                        <input type="text" name="username" class="form-control" formControlName="username"
+                            [(ngModel)]="user.username">
+                    </div>
+
+                    <span *ngIf="myForm.controls['username'].hasError('required')&& myForm.controls['username'].touched"
+                        class="text-danger"> Nom Utilisateur est obligatoire
+                    </span>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email :</label>
+                        <input type="text" name="email" class="form-control" formControlName="email"
+                            [(ngModel)]="user.email">
+                    </div>
+
+                    <span *ngIf="myForm.controls['email'].hasError('required')&& myForm.controls['email'].touched"
+                        class="text-danger">
+                        email est obligatoire
+                    </span>
+
+                    <span *ngIf="myForm.controls['email'].hasError('email')&& myForm.controls['email'].touched"
+                        class="text-danger"> email
+                        non valide
+                    </span>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Mot de passe :</label>
+                        <input type="password" name="password" formControlName="password" [(ngModel)]="user.password"
+                            class="form-control">
+                    </div>
+
+
+                    <span *ngIf="myForm.controls['password'].hasError('required')&& myForm.controls['password'].touched"
+                        class="text-danger"> mot de passe est obligatoire
+                    </span>
+
+                    <span
+                        *ngIf="myForm.controls['password'].hasError('minlength')&& myForm.controls['password'].touched"
+                        class="text-danger"> mot de passe doit contenir au moins 6 caractères
+                    </span>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Confirmer Mot de passe :</label>
+                        <input type="password" name="confirmPassword" formControlName="confirmPassword"
+                            class="form-control">
+                    </div>
+
+                    <span
+                        *ngIf="myForm.controls['confirmPassword'].hasError('required')&& myForm.controls['confirmPassword'].touched"
+                        class="text-danger"> confirmer mot de passe est obligatoire
+                    </span>
+
+                <div>
+                    <span
+                        *ngIf="myForm.get('confirmPassword')?.touched && myForm.get('confirmPassword')?.value != myForm.get('password')?.value"
+                         class="text-danger"> Le mot de passe confirmé ne correspond pas au mot de passe tapé 
+                    </span>
+                </div>
+                    
+
+                    <div class="row justify-content-md-center mb-1">
+                        <button type="button" [disabled]="myForm.invalid" (click)="onRegister()" class="btn btn-primary">S'inscrire</button>
+                    </div>
+
+                </form>
+
+                <div *ngIf="loading==true" class="d-flex justify-content-center mb-3">
+                        <div class="spinner-border" role="status">
+                             <span  class="sr-only">Loading...</span>
+                        </div>
+                </div>
+                <div class="mt-3 text-center text-muted">
+                    <p> Vous avez un compte ? <a routerLink="/login">Se connecter</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
